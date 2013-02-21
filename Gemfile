@@ -8,7 +8,7 @@ gem 'rack-cache'
 gem 'sqlite3'
 
 # Front end
-gem 'haml'
+gem 'haml-rails'
 gem 'simple_form'
 gem 'therubyracer'
 
@@ -32,6 +32,7 @@ group :development, :test do
 
   gem 'thin'
 
+  gem 'factory_girl_rails'
   gem 'minitest-rails'
   gem 'minitest-matchers'
   gem 'guard-minitest'

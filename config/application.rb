@@ -57,6 +57,13 @@ module PlacesRails
     config.assets.enabled = true
     config.sass.preferred_syntax = :sass
 
+    config.generators do |g|
+      g.helpers false
+      g.template_engine :haml
+      g.test_framework :mini_test, dir: 'spec' #fixture_replacement: :factory_girl
+      g.fixture_replacement :factory_girl, dir: 'test/factories'
+    end
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
   end
