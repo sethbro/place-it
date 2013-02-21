@@ -1,0 +1,27 @@
+!!! utf-8
+
+%html
+  %head
+    %title
+      = t 'place_it.meta.title'
+
+    = stylesheet_link_tag 'application', media: 'screen'
+
+  %body
+    #backdrop
+
+    #page
+
+      #header
+        %header
+
+      #layout
+        #page_content
+
+          = yield
+
+    #footer
+      %footer
+
+  = render 'common/javascript'
+  
