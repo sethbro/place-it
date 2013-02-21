@@ -101,6 +101,9 @@ GEM
     minitest (4.6.1)
     minitest-matchers (1.2.0)
       minitest (>= 2.5.0)
+    minitest-rails (0.5.2)
+      minitest (~> 4.0)
+      rails (>= 3.0)
     mocha (0.13.2)
       metaclass (~> 0.0.1)
     multi_json (1.6.1)
@@ -200,8 +203,8 @@ DEPENDENCIES
   guard-minitest
   haml
   konacha
-  minitest
   minitest-matchers
+  minitest-rails
   mocha
   neat
   pry

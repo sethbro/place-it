@@ -32,14 +32,13 @@ group :development, :test do
 
   gem 'thin'
 
-  gem 'mocha'
-  gem 'minitest'
+  gem 'minitest-rails'
   gem 'minitest-matchers'
   gem 'guard-minitest'
+  gem 'mocha'
   gem 'rb-fsevent', '~> 0.9.1'
   gem 'turn', :require => false
 
   # Javascript testing
   gem 'konacha'
 end
-
