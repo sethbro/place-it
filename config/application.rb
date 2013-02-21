@@ -58,9 +58,10 @@ module PlacesRails
     config.sass.preferred_syntax = :sass
 
     config.generators do |g|
-      g.helpers false
+      g.helper false
+      g.stylesheets false   
       g.template_engine :haml
-      g.test_framework :mini_test, dir: 'spec' #fixture_replacement: :factory_girl
+      g.test_framework :mini_test, dir: 'spec'
       g.fixture_replacement :factory_girl, dir: 'test/factories'
     end
 
