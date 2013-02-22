@@ -2,6 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+
+  submit: "Submit"
+  delete: "Delete"
+
   place_it:
     meta:
       title: "Place It - We're Everywhere You Tell Us to Be"
@@ -9,7 +13,6 @@ en:
   locations:
     name: "Location name"
     address: "Address"
-    delete: "Delete"
 
     index:
       h1: "Place It!"

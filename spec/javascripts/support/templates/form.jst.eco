@@ -1,0 +1,5 @@
+<form>
+  <input name="location[name]"/>
+  <input name="location[address]"/>
+  <button class="submit">Submit</button>
+</form>

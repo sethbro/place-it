@@ -1,11 +1,11 @@
 PlaceIt.LocationsController = function() {
 
   this.locations = [];
-  this.listView = $()
 
   this.initialize = function() {
-    _.bindAll(this, 'populateViews')
+    _.extend(this, Backbone.Events);
     this.gatherNodes();
+    this.initForm();
     this.initLocations();
   };
 
@@ -14,6 +14,10 @@ PlaceIt.LocationsController = function() {
     this.$mapView = $('#map');
   };
 
+  this.initForm = function() {
+    this.form = new PlaceIt.Views.NewLocationForm( {el: $('form')} );
+    this.listenTo(this.form, 'location:add', this.geocodeLocation );
+  },
   /* Retrieve locations from server */
   this.initLocations = function() {
     this.locations = new PlaceIt.Locations();
