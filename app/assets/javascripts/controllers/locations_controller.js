@@ -4,17 +4,18 @@ PlaceIt.LocationsController = function() {
 
   this.initialize = function() {
     _.extend(this, Backbone.Events);
-    _.bindAll(this, 'populateInitialViews', 'addNewLocationViews', 'geocodeLocation');
+    _.bindAll(this, 'populateViews', 'addLocationViews', 'geocodeLocation');
 
     this.geocoder = new google.maps.Geocoder();
-    this.gatherNodes();
+    this.initViews();
     this.initForm();
     this.initLocations();
   };
 
-  this.gatherNodes = function() {
-    this.$listView = $('ul.locations');
-    this.$mapView = $('#map');
+  this.initViews = function() {
+    this.views = {};
+    this.views.list = new PlaceIt.Views.LocationsList({el: $('ul.locations')});
+    this.views.map = new PlaceIt.Views.GoogleMap( {el: $('#map')} );
   };
 
   this.initForm = function() {
@@ -27,20 +28,14 @@ PlaceIt.LocationsController = function() {
     this.locations = new PlaceIt.Locations();
     this.listenTo(this.locations, 'add', this.addLocation);
 
-    this.locations.fetch({success: this.populateInitialViews});
+    this.locations.fetch({success: this.populateViews});
   };
 
   /* Create list and marker views */
-  this.populateInitialViews = function(locations, response, opts) {
-    this.locations.forEach(function(loc, i) {
-
-      /* List item */
-      $li = $(_.template( PlaceIt.Templates.location_item, loc.toJSON() ));
-      this.$listView.append($li);
-
-      /* Map marker */
-
-    }, this)
+  this.populateViews = function(locations, response, opts) {
+    locations.models.forEach( function(loc, response, opts) {
+      this.addLocationViews(loc);
+    }, this);
   };
 
   /* Makes Google Maps api call to geocode by address and passes result to initNewLocation if valid */
@@ -62,11 +57,9 @@ PlaceIt.LocationsController = function() {
 
   this.geocodingError = jQuery.noop;
 
-  this.addNewLocationViews = function(model, resp, options) {
-    log('adding location');
-    log('model', model);
-    log('resp', resp);
-    log('options', options);
+  this.addLocationViews = function(model) {
+    this.views.list.addItem(model);
+    this.views.map.addMarker(model);
   };
 
   /* Kickoff */

@@ -28,7 +28,7 @@ describe( 'LocationsController', function() {
       assert(spy.calledWith( {address: 'foo'} ));
     });
 
-    it.skip('fires model create call upon successful geocode', function() {
+    it.skip( 'fires model create call upon successful geocode', function() {
       var geo = {geometry: {location: {}}};
       var lat = geo.geometry.location.lat = function() { return 1.5; };
       var lng = geo.geometry.location.lng = function() { return 1.5; };
@@ -47,7 +47,12 @@ describe( 'LocationsController', function() {
   /* LIST */
   describe( 'locations list', function() {
 
-    it( 'maintains a reference to map and locations list views', function() {
+    it( 'instantiates list as a view', function() {
+      window.ctrl.views.list.should.be.instanceof(PlaceIt.Views.LocationsList);
+    });
+
+    it( 'populates list item views from collection', function() {
+      var ctrl = new PlaceIt.LocationsController();
     });
 
   });
@@ -61,6 +66,7 @@ describe( 'LocationsController', function() {
   });
 
   describe( 'initialization', function() {
+
     it( 'fetches the locations collection', function() {
     });
 
