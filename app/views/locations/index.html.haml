@@ -1,16 +1,16 @@
 %h1
   = t '.h1'
 
-.form
+#add_location
   = simple_form_for :location do |f|
     = f.input :name
     = f.input :address
     = f.submit
 
-.locations
+#locations
   %h2
     = t '.your_places'
-  %ul
-    = render partial: 'location', collection: @locations
+  %ul.locations
+    -#= render partial: 'location', collection: @locations
 
 #map
