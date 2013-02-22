@@ -4,6 +4,9 @@ PlaceIt.LocationsController = function() {
 
   this.initialize = function() {
     _.extend(this, Backbone.Events);
+    _.bindAll(this, 'populateInitialViews', 'addNewLocationViews', 'geocodeLocation');
+
+    this.geocoder = new google.maps.Geocoder();
     this.gatherNodes();
     this.initForm();
     this.initLocations();
@@ -18,25 +21,58 @@ PlaceIt.LocationsController = function() {
     this.form = new PlaceIt.Views.NewLocationForm( {el: $('form')} );
     this.listenTo(this.form, 'location:add', this.geocodeLocation );
   },
-  /* Retrieve locations from server */
+
+  /* Set collection, listen for changes, & retrieve initial locations from server */
   this.initLocations = function() {
     this.locations = new PlaceIt.Locations();
-    this.locations.fetch({success: this.populateViews});
+    this.listenTo(this.locations, 'add', this.addLocation);
+
+    this.locations.fetch({success: this.populateInitialViews});
   };
 
   /* Create list and marker views */
-  this.populateViews = function(locations, response, opts) {
-    this.locations.forEach( function(loc, i) {
-      $li = $(_.template( PlaceIt.Templates.location_item, loc.toJSON() ))
+  this.populateInitialViews = function(locations, response, opts) {
+    this.locations.forEach(function(loc, i) {
+
+      /* List item */
+      $li = $(_.template( PlaceIt.Templates.location_item, loc.toJSON() ));
       this.$listView.append($li);
+
+      /* Map marker */
+
     }, this)
-  }
+  };
+
+  /* Makes Google Maps api call to geocode by address and passes result to initNewLocation if valid */
+  this.geocodeLocation = function(locationData) {
+    this.geocoder.geocode( _.pick(locationData, 'address'), _.bind(function(geoResult, status) {
+      var gloc, latlng;
+
+      if (status !== 'OK') {
+        this.geocodingError(locationData);
+      }
+      else {
+        gloc = geoResult[0].geometry.location;
+        latlng = {latitude: gloc.lat(), longitude: gloc.lng()};
+
+        this.locations.create(_.extend(locationData, latlng), {wait: true});
+      }
+    }, this));
+  };
+
+  this.geocodingError = jQuery.noop;
+
+  this.addNewLocationViews = function(model, resp, options) {
+    log('adding location');
+    log('model', model);
+    log('resp', resp);
+    log('options', options);
+  };
 
   /* Kickoff */
   this.initialize();
-
-  return this;
 }
+
 
 /* Instantiate controller */
 $(document).ready(function() {

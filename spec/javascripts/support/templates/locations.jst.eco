@@ -1,4 +1,9 @@
 <body class="locations index">
+  <form>
+    <input name="location[name]"/>
+    <input name="location[address]"/>
+    <button class="submit">Submit</button>
+  </form>
 
   <ul class="locations">
   </ul>
