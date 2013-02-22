@@ -11,6 +11,8 @@ gem 'sqlite3'
 gem 'haml-rails'
 gem 'simple_form'
 gem 'therubyracer'
+gem 'sprockets_html_template'
+gem 'eco'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -18,7 +20,7 @@ group :assets do
   gem 'sass-rails'
   gem 'bourbon'
   gem 'neat'
-  
+
   gem 'coffee-rails'
 end
 

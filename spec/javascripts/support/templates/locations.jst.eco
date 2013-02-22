@@ -1,0 +1,9 @@
+<body class="locations index">
+
+  <ul class="locations">
+  </ul>
+
+  <div id="map">
+  </map>
+
+</body>

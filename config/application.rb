@@ -57,9 +57,12 @@ module PlacesRails
     config.assets.enabled = true
     config.sass.preferred_syntax = :sass
 
+    # Make JS testing support files available for compilation
+    config.assets.paths << "#{Rails.root}/spec/javascripts/support"
+
     config.generators do |g|
       g.helper false
-      g.stylesheets false   
+      g.stylesheets false
       g.template_engine :haml
       g.test_framework :mini_test, dir: 'spec'
       g.fixture_replacement :factory_girl, dir: 'test/factories'
