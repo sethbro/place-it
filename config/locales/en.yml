@@ -5,3 +5,12 @@ en:
   place_it:
     meta:
       title: "Place It - We're Everywhere You Tell Us to Be"
+
+  locations:
+    name: "Location name"
+    address: "Address"
+    delete: "Delete"
+
+    index:
+      h1: "Place It!"
+      your_places: "Your Places"
