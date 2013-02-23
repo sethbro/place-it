@@ -55,6 +55,7 @@ PlaceIt.LocationsController = function() {
     }, this));
   };
 
+  /* TODO */
   this.geocodingError = jQuery.noop;
 
   this.addLocationViews = function(model) {
