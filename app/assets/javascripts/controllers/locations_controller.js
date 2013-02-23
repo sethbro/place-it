@@ -26,7 +26,7 @@ PlaceIt.LocationsController = function() {
   /* Set collection, listen for changes, & retrieve initial locations from server */
   this.initLocations = function() {
     this.locations = new PlaceIt.Locations();
-    this.listenTo(this.locations, 'add', this.addLocation);
+    this.listenTo(this.locations, 'add', this.addLocationViews);
 
     this.locations.fetch({success: this.populateViews});
   };

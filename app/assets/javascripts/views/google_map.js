@@ -1,3 +1,5 @@
+/* Dependencies: Google Maps */
+
 PlaceIt.Views.GoogleMap = Backbone.View.extend({
 
   gmap_defaults: {
@@ -10,7 +12,7 @@ PlaceIt.Views.GoogleMap = Backbone.View.extend({
     var opts = {};
     this.markers = [];
 
-    /* Override map center if provided with options */
+    /* Override map center if provided at instantiation */
     if (this.options.latitude && this.options.longitude) {
       opts.center = new google.maps.LatLng( this.options.latitude, this.options.longitude );
     }
