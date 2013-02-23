@@ -1,17 +1,19 @@
-%h1
-  = t '.h1'
+%header
+  %h1
+    = t '.h1'
+  #add_location
+    = simple_form_for :location do |f|
+      = f.input :name
+      = f.input :address
 
-#add_location
-  = simple_form_for :location do |f|
-    = f.input :name
-    = f.input :address
-    %button.submit{ type: 'button' }
-      = t 'submit'
+      %button.submit{ type: 'button' }
+        = t 'submit'
 
-#locations
-  %h2
-    = t '.your_places'
-  %ul.locations
-    -#= render partial: 'location', collection: @locations
+#body
+  #locations
+    %h2
+      = t '.your_places'
+    %ul.locations
+      -#= render partial: 'location', collection: @locations
 
-#map
+  #map

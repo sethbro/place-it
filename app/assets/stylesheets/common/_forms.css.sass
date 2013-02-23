@@ -1,0 +1,164 @@
+/* Global form and input styles
+
+form, fieldset, label, div.input
+  display: block
+  @extend .clearfix
+
+form, fieldset, div.input, div.select
+  margin: 0 0 1.2em
+
+div.input.hidden
+  margin-bottom: 0
+
+
+/* ===== WRAPPERS
+
+fieldset
+  padding: 0
+  border: 0
+
+/* Make label style available through a class */
+label, .label
+  margin: 0 0 0.5em
+  padding-left: 0.1em
+  display: block
+  +label
+
+/* Wrapper div for all simple form fields */
+div.input, div.select
+
+  &.string, &.tel, &.email, &.password
+
+  abbr[title="required"]
+    display: none
+
+div.input.text
+  @extend .clearfix
+
+  &.full
+    width: 98%
+
+
+/* ===== FIELD ELEMENTS
+
+input, textarea, select
+  margin: 0
+  border: 1px solid $grey_c
+  border-radius: 4px
+  background-color: #fafafa
+  +font_size(14)
+  outline: none
+  +transition (border-color 0.2s linear)
+
+input
+  margin: 0
+  display: block
+
+#{$all-text-inputs}, textarea
+  +box-shadow(0px 1px 3px 0 rgba(0,0,0,0.1) inset, 0px 0px 0px 0px rgba(109, 209, 255, 0.35))
+  +transition (box-shadow 0.2s linear)
+
+#{$all-text-inputs}, select
+  width: 98%
+  padding: 0.75em 0.9em
+
+  &.error
+    border-color: $red_orange
+
+textarea
+  width: 99%
+  height: 8em
+  padding: 0.75em 0.9em
+  display: block
+
+  &.error
+    border-color: $red_orange
+
+select
+  background: none
+
+input[type="submit"]
+  clear: both
+
+input:focus, textarea:focus, select:focus
+  border-color: #7bd0f8
+  +box-shadow(1px 1px 1px 0 rgba(0,0,0,0.1) inset, 0px 0px 5px 1px rgba(109, 209, 255, 0.35))
+
+/* Placeholders */
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder,
+  color: $grey_c
+input:-moz-placeholder, textarea:-moz-placeholder
+  color: $grey_c
+input:-ms-input-placeholder, textarea:-ms-input-placeholder
+  color: $grey_c
+
+
+/* Checkboxes & Radio buttons */
+.radio_and_checkbox_style
+  margin: 0 0.4em 0 0
+  display: inline-block
+  vertical-align: baseline
+
+div.input.boolean, div.input.radio_buttons > span
+  width: 20%
+  float: left
+  margin-bottom: 0.4em
+
+  label
+    @extend .radio_and_checkbox_style
+
+label.collection_radio_buttons, label.collection_check_boxes
+  @extend .radio_and_checkbox_style
+
+input[type="checkbox"], input[type="radio"]
+  @extend .radio_and_checkbox_style
+  position: relative
+
+/* Spans in a .check_boxes wrapper display atop one another */
+div.check_boxes > span
+  display: block
+
+/* Spans in a .radio_buttons wrapper get extra right margin */
+div.radio_buttons > span
+  display: inline-block
+  margin-right: 1em
+
+
+
+/* Forms with inline titles */
+.inline-labels
+  form
+    margin: 0
+
+  label
+    float: left
+    background: $grey_f
+    border: 1px solid $grey_e
+    height: 38px
+    width: 30%
+    line-height: 38px
+    padding: 0 1em
+    margin: 0
+    @include border-left-radius(4px)
+
+  .input
+    margin-bottom: 10px
+    float: left
+
+  input
+    float: left
+    @include box-shadow(none)
+    background: white
+    width: 198px
+    height: 38px
+    width: 70%
+    line-height: 38px
+    padding: 0 1em
+    margin: 0 0 0 -1px
+    border-color: $grey_e
+    font-size: 12px
+    @include border-left-radius(0)
+
+  input:focus, textarea:focus, select:focus
+    border-color: #7bd0f8
+    +box-shadow(1px 1px 1px 0 rgba(0,0,0,0.1) inset, 0px 0px 5px 1px rgba(109, 209, 255, 0.35))

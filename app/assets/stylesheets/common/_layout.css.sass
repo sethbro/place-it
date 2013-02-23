@@ -1,0 +1,36 @@
+/* Responsible for determining basic page layout & structure
+
+/* ==================== COMMON MIXINS
+= hidden
+  display: none
+
+.hidden
+  +hidden
+
+.clearfix
+  +clearfix
+
+ul
+  margin: 0
+  padding: 0
+
+
+
+/* ==================== STRUCTURAL ELEMENTS
+
+html, body
+  height: 100%
+
+body
+  position: relative
+
+#page
+  max-width: 1024px
+  @extend .clearfix
+  background-color: #fff
+  // +box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.1))
+
+
+/* ===== HEADER
+#header, #footer, #body
+  @extend .clearfix
