@@ -9,6 +9,8 @@ PlaceIt.Views.LocationMarker = Backbone.View.extend({
       map: this.options.map,
       title: this.options.name
     };
+
+    this.listenTo(this.model, 'destroy', this.removeMarker);
     this.render();
   },
 
@@ -17,6 +19,10 @@ PlaceIt.Views.LocationMarker = Backbone.View.extend({
     var full_opts = _.extend( this.gmarkerOpts, {position: latlng} );
 
     this.gmarker = new google.maps.Marker(full_opts);
+  },
+
+  removeMarker: function(model, collection, opts) {
+    this.gmarker.setMap(null);
   }
 
 });
