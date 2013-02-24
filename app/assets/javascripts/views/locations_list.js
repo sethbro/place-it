@@ -23,7 +23,7 @@ PlaceIt.Views.LocationsList = Backbone.View.extend({
     }
   },
 
-  addItem: function(model, i) {
+  addItem: function(model) {
     var view = new PlaceIt.Views.LocationItem( {model: model} );
     this.$el.append( view.$el );
     this.render();

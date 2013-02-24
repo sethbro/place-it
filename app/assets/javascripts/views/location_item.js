@@ -9,9 +9,9 @@ PlaceIt.Views.LocationItem = Backbone.View.extend({
     this.render();
   },
 
+  /* Update element, including bound events, etc. */
   render: function() {
     var $el = $(_.template( PlaceIt.Templates.location_item, this.model.toJSON() ));
-    /* Update element, including bound events, etc. */
     this.setElement($el);
   },
 
