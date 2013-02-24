@@ -1,4 +1,5 @@
 class LocationsController < ApplicationController
+
   # GET /locations
   # GET /locations.json
   def index
@@ -6,7 +7,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @locations }
+      format.json { render json: @locations.map { |loc| location_attrs(loc) } }
     end
   end
 
@@ -17,7 +18,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @location }
+      format.json { render json: location_attrs(@location) }
     end
   end
 
@@ -28,7 +29,6 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @location }
     end
   end
 
@@ -45,7 +45,7 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location.save
         format.html { redirect_to @location, notice: 'Location was successfully created.' }
-        format.json { render json: @location, status: :created, location: @location }
+        format.json { render json: location_attrs( @location ), status: :created, location: @location }
       else
         format.html { render action: "new" }
         format.json { render json: @location.errors, status: :unprocessable_entity }
@@ -61,10 +61,8 @@ class LocationsController < ApplicationController
     respond_to do |format|
       if @location.update_attributes(params[:location])
         format.html { redirect_to @location, notice: 'Location was successfully updated.' }
-        format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -77,7 +75,15 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to locations_url }
-      format.json { render json: @location }
+      format.json { render json: location_attrs(@location) }
     end
   end
+
+  private
+
+  # Filter timestamps
+  def location_attrs(loc)
+    loc.attributes.select { |k,v| %w(name address latitude longitude).include?(k) }
+  end
+
 end

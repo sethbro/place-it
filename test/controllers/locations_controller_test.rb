@@ -2,50 +2,59 @@ require "minitest_helper"
 
 describe LocationsController do
 
-  before do
-    @location = locations(:one)
-  end
+  let(:location) { FactoryGirl.attributes_for(:location) }
+
+  # ===== API
 
   it "must get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:locations)
-  end
+    loc = FactoryGirl.create :location
 
-  it "must get new" do
-    get :new
+    get :index, {format: :json}
+
     assert_response :success
+    @response.body.must_equal [location].to_json
   end
 
   it "must create location" do
-    assert_difference('Location.count') do
-      post :create, location: {  }
-    end
+    count = Location.count
 
-    assert_redirected_to location_path(assigns(:location))
+    post :create, {location: location, format: :json}
+
+    Location.count.must_equal( count + 1 )
+    @response.body.must_equal( location.to_json )
   end
 
   it "must show location" do
-    get :show, id: @location
-    assert_response :success
-  end
+    loc = FactoryGirl.create :location
+    get :show, {id: loc.id, format: :json}
 
-  it "must get edit" do
-    get :edit, id: @location
-    assert_response :success
-  end
-
-  it "must update location" do
-    put :update, id: @location, location: {  }
-    assert_redirected_to location_path(assigns(:location))
+    @response.body.must_equal( location.to_json )
   end
 
   it "must destroy location" do
-    assert_difference('Location.count', -1) do
-      delete :destroy, id: @location
-    end
+    loc = FactoryGirl.create :location
+    count = Location.count
 
-    assert_redirected_to locations_path
+    delete :destroy, {id: loc.id, format: :json}
+
+    @response.body.must_equal( location.to_json )
+    Location.count.must_equal( count - 1)
   end
+
+
+  # it "must get new" do
+  #   get :new
+  #   assert_response :success
+  # end
+
+  # it "must get edit" do
+  #   get :edit, id: @location
+  #   assert_response :success
+  # end
+
+  # it "must update location" do
+  #   put :update, id: @location, location: {  }
+  #   assert_redirected_to location_path(assigns(:location))
+  # end
 
 end

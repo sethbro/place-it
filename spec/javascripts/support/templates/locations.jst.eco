@@ -6,6 +6,7 @@
   </form>
 
   <ul class="locations">
+    <div class="empty_message">Empty</div>
   </ul>
 
   <div id="map">
