@@ -83,7 +83,7 @@ class LocationsController < ApplicationController
 
   # Filter timestamps
   def location_attrs(loc)
-    loc.attributes.select { |k,v| %w(name address latitude longitude).include?(k) }
+    loc.attributes.select { |k,v| %w(id name address latitude longitude).include?(k) }
   end
 
 end

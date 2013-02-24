@@ -71,6 +71,13 @@ PlaceIt.Views.GoogleMap = Backbone.View.extend({
     this.render();
   },
 
+  displayError: function() {
+    /* FIXME: Element should be a child of this view el */
+    var $msg = $('.error_message');
+    $msg.addClass('active');
+    setTimeout( function() { $msg.removeClass('active'); }, 1800 );
+  },
+
   markerLatLng: function(marker) {
     return new google.maps.LatLng(marker.gmarker.position.lat(), marker.gmarker.position.lng());
   }

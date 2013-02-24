@@ -12,8 +12,12 @@
   #locations
     %h2
       = t '.your_places'
+
     %ul.locations
       .empty_message
         = t '.empty_message'
 
-  #map
+  .map_container
+    #map
+    .error_message
+      = t '.geocoding_error'

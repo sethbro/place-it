@@ -26,7 +26,7 @@ h1, #add_location
     clear: none
     color: #fff
 
-#locations, #map
+#locations, .map_container
   float: left
 
 h2
@@ -66,7 +66,29 @@ h2
       float: right
       cursor: pointer
 
-#map
+.map_container, #map
   width: 550px
   height: 350px
-  border: 2px solid $grey_a
+  position: relative
+  text-align: center
+
+  #map
+    border: 2px solid $grey_a
+
+  .error_message
+    width: 350px
+    position: absolute
+    top: 125px
+    margin: 0 75px
+    padding: 25px
+    font: bold 16px/1.2 $stack_sans
+    color: $red_orange
+    border: 2px solid $red_orange
+    border-radius: 4px
+    background: #fcc
+    +transition(opacity 0.7s ease-in-out)
+
+    opacity: 0
+
+    &.active
+      opacity: 1

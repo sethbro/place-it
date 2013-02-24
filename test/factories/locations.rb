@@ -3,6 +3,7 @@
 FactoryGirl.define do
 
   factory :location do
+    id 1
     name "Home"
     address "1600 W Pennsylvania, Washington D.C."
     latitude 41.9

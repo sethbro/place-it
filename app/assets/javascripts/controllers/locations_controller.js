@@ -5,7 +5,7 @@ PlaceIt.LocationsController = Backbone.View.extend({
   },
 
   initialize: function() {
-    _.bindAll(this, 'geocodeLocation', 'addLocation');
+    _.bindAll(this, 'geocodeLocation', 'addLocation', 'geocodingError');
 
     this.geocoder = new google.maps.Geocoder();
     this.populateViews();
@@ -28,18 +28,20 @@ PlaceIt.LocationsController = Backbone.View.extend({
     var locationData = this.gatherLocationData();
 
     if (status !== 'OK') {
-      this.geocodingError(LocationData);
+      this.geocodingError();
     }
     else {
       /* Map geocode data to our location model */
       var gloc = geoResult[0].geometry.location;
       var latlng = {latitude: gloc.lat(), longitude: gloc.lng()};
-      this.collection.create(_.extend(locationData, latlng), {wait: true});
+      this.collection.create(_.extend(locationData, latlng), {wait: true, error: this.geocodingError});
     }
   },
 
   /* TODO */
-  geocodingError: jQuery.noop,
+  geocodingError: function() {
+    this.map.displayError();
+  },
 
   gatherLocationData: function() {
     return {
