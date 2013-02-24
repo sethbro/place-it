@@ -11,7 +11,10 @@ PlaceIt.Views.GoogleMap = Backbone.View.extend({
   initialize: function() {
     this.markers = [];
     this.initGMap();
+
     this.listenTo(this.collection, 'add', this.addMarker);
+    this.listenTo(this.collection, 'destroy', this.removeMarker);
+
     this.populate();
   },
 
@@ -33,9 +36,43 @@ PlaceIt.Views.GoogleMap = Backbone.View.extend({
     }, this);
   },
 
+  /* Zoom to accommodate new markers */
+  render: function() {
+    if (this.markers.length == 1) {
+      this.gmap.setZoom( this.gmap_defaults.zoom );
+      this.gmap.panTo( this.markerLatLng(this.markers[0]) );
+    }
+    else if (this.markers.length > 1) {
+      var bounds = new google.maps.LatLngBounds();
+      this.markers.forEach( function(marker, i) {
+        bounds.extend( this.markerLatLng(marker) );
+      }, this);
+
+      this.gmap.fitBounds(bounds);
+    };
+  },
+
   addMarker: function(locationModel) {
-    var view = new PlaceIt.Views.LocationMarker( {model: locationModel, map: this.gmap, name: locationModel.get('name')} );
+    var marker_data = {
+      map: this.gmap,
+      id: locationModel.id,
+      model: locationModel,
+      name: locationModel.get('name')
+    };
+
+    var view = new PlaceIt.Views.LocationMarker( marker_data );
     this.markers.push(view);
+    this.render();
+  },
+
+  /* Remove marker view from internal array & re-render */
+  removeMarker: function(location) {
+    this.markers = _.reject(this.markers, function(m) { return m.id == location.id; });
+    this.render();
+  },
+
+  markerLatLng: function(marker) {
+    return new google.maps.LatLng(marker.gmarker.position.lat(), marker.gmarker.position.lng());
   }
 
 });
