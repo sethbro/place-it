@@ -55,6 +55,14 @@ h2
     border: 1px solid #eee
     border-radius: 1
     +background($gradient_grey)
+    +font_size(14)
+    @extend .clearfix
+
+    form
+      margin: 0
+
+    div, input, span, form
+      float: left
 
     .name
       margin-right: 2em
@@ -62,6 +70,40 @@ h2
 
       &:empty
         margin-right: 0
+
+    .address
+      margin-right: 1em
+
+    input.editable_address
+      margin-right: 1em
+      width: 14em
+      padding: 0.4em
+      clear: none
+
+    .edit
+      width: 16px
+      height: 16px
+      background: image-url('icomoon/pencil.png') no-repeat
+      text-indent: -999em
+      opacity: 0.6
+      cursor: pointer
+
+    input[type="submit"]
+      clear: none
+
+    .save
+      margin-top: 0.2em
+      padding: 0.4em 0.8em
+      border: 0
+      border-radius: 4px
+      +font_size(11)
+      text-transform: uppercase
+      background: #555
+      color: #fff
+      cursor: pointer
+
+      &:hover
+        color: $grey_c
 
     .delete
       float: right

@@ -1,8 +1,11 @@
-/* Dependencies: Google Maps */
+/* Responsible for updating an individual marker in a Google Map.
+  * Tied to a Location instance. Requires {map: google.maps.Map instance } in constructor options.
+  *
+  * Dependencies: Google Maps
+  */
 
 PlaceIt.Views.LocationMarker = Backbone.View.extend({
 
-  /* Expects a google map reference to be passed as "map" in options hash */
   initialize: function() {
     this.gmarkerOpts = {
       animation: google.maps.Animation.DROP,
@@ -11,6 +14,7 @@ PlaceIt.Views.LocationMarker = Backbone.View.extend({
     };
 
     this.listenTo(this.model, 'destroy', this.removeMarker);
+    this.listenTo(this.model, 'sync', this.updateMarker);
     this.render();
   },
 
@@ -19,6 +23,11 @@ PlaceIt.Views.LocationMarker = Backbone.View.extend({
     var full_opts = _.extend( this.gmarkerOpts, {position: latlng} );
 
     this.gmarker = new google.maps.Marker(full_opts);
+  },
+
+  updateMarker: function(model, opts) {
+    this.removeMarker();
+    this.render();
   },
 
   removeMarker: function(model, collection, opts) {

@@ -18,7 +18,7 @@ en:
       h1: "Place It!"
       your_places: "Your Places"
       empty_message: "You have no places"
-      geocoding_error: "This place could not be located"
+      geocoding_error: "Hmm, I can't quite place that ..."
 
 
   simple_form:

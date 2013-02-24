@@ -13,5 +13,4 @@
 //= require underscore.1.4.4
 //= require backbone.0.9.10
 
-//= require place_it
 //= require locations
