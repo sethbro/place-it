@@ -1,16 +1,18 @@
 PlaceIt.Views.LocationsList = Backbone.View.extend({
 
   initialize: function() {
-    this.items = [];
-    this.render();
+    this.populate();
+    this.listenTo(this.collection, 'add', this.addItem);
   },
 
-  render: function() {
+  populate: function() {
+    this.collection.models.forEach( function(loc, i) {
+      this.addItem(loc, i);
+    }, this);
   },
 
-  addItem: function(model) {
+  addItem: function(model, i) {
     var view = new PlaceIt.Views.LocationItem( {model: model} );
-    this.items.push(view);
     this.$el.append( view.$el );
   }
 

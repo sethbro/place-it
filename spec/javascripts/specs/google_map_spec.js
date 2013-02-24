@@ -4,19 +4,18 @@
 describe( 'GoogleMap', function() {
 
   beforeEach(function() {
-    $('body').html(JST['templates/locations']());
-    window.map = new PlaceIt.Views.GoogleMap( {el: $('#map')} );
+    $('body').html( JST['templates/locations']() );
+    var location = new PlaceIt.Location( {name: 'foo', address: 'bar', latitude: 1.5, longitude: 1.5} );
+    var locs = new PlaceIt.Locations([location]);
+    window.map = new PlaceIt.Views.GoogleMap( {el: $('#map'), collection: locs} );
   });
 
 
-  it( 'instantiates a Google Map' ), function() {
+  it( 'instantiates a Google Map', function() {
     window.map.gmap.should.be.instanceof( google.maps.Map );
   });
 
-  it.skip( 'adds a marker based on location latlng', function() {
-    var loc = new PlaceIt.Location({latitude: 2, longitude: 2, address: 'foo'});
-    window.map.addMarker( {model: loc, map: window.map.gmap} );
-
+  it( 'adds markers for initial collection', function() {
     window.map.markers[0].should.be.instanceof(PlaceIt.Views.LocationMarker);
   });
 
