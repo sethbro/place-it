@@ -18,13 +18,12 @@ h1, #add_location
     float: left
     margin-right: 1em
 
-  input
+  input[type="text"]
     width: 16em
 
-  button
-    margin-top: 1.25em
-    padding: 0.75em 2em
-    background: $green
+  .submit
+    margin-top: 1.2em
+    clear: none
     color: #fff
 
 #locations, #map
@@ -38,6 +37,19 @@ h2
   width: 40%
   padding: 0 0 0 20px
   margin-right: 2em
+
+  ul
+    .empty_message
+      display: none
+      +font_size(16)
+      color: $grey_c
+      text-align: center
+      padding-top: 4em
+
+    &.empty
+      .empty_message
+        display: block
+
 
   li
     padding: 1em 1em 1em 0
@@ -56,5 +68,5 @@ h2
 
 #map
   width: 550px
-  height: 450px
-  border: 2px solid #333
+  height: 350px
+  border: 2px solid $grey_a

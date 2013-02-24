@@ -17,3 +17,4 @@ en:
     index:
       h1: "Place It!"
       your_places: "Your Places"
+      empty_message: "You have no places"
