@@ -11,7 +11,7 @@ describe( 'LocationsList', function() {
 
 
   it( 'populates items on init', function() {
-    var locs = new PlaceIt.Locations([window.loc]);
+    var locs = new PlaceIt.Locations([loc]);
     var list = new PlaceIt.Views.LocationsList( {el: $('.locations'), collection: locs} );
 
     list.$el.children('li').length.should.equal(1);
@@ -22,7 +22,7 @@ describe( 'LocationsList', function() {
     var list = new PlaceIt.Views.LocationsList( {el: $('.locations'), collection: locs} );
     list.$el.should.have.class('empty');
 
-    list.addItem(window.loc);
+    list.addItem(loc);
     list.$el.should.not.have.class('empty');
   })
 
