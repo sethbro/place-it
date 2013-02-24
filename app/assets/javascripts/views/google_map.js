@@ -5,6 +5,9 @@ PlaceIt.Views.GoogleMap = Backbone.View.extend({
   gmap_defaults: {
     MapTypeId: google.maps.MapTypeId.ROADMAP,
     center: new google.maps.LatLng( 41.9, -87.63 ),
+    mapTypeControlOptions: {mapTypeIds: []},
+    panControl: false,
+    streetViewControl: false,
     zoom: 13
   },
 

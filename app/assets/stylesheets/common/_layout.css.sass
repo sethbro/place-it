@@ -25,11 +25,18 @@ body
   position: relative
 
 #page
-  max-width: 1024px
   @extend .clearfix
-  background-color: #fff
-  // +box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.1))
+  background: $grey_f
+  text-align: center
 
+  #page_content
+    max-width: 1024px
+    height: 1200px
+    margin: 0 auto
+    text-align: left
+    +box-shadow(0 0 5px 1px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.1))
+    background: #fff
+    @extend .clearfix
 
 /* ===== HEADER
 #header, #footer, #body

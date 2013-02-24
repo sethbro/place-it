@@ -1,4 +1,7 @@
 /* Import font-face declarations, including some Base64-encoded fonts */
+@import url(http://fonts.googleapis.com/css?family=Lato:400,100)
+
+$stack_display: Lato, sans-serif
 
 /* ===== FONT STACKS
 $stack_sans: "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -32,5 +35,7 @@ $stack_forms: "Helvetica Neue", Helvetica, Arial, sans-serif
 
 = header($size)
   +font_size($size)
-  color: $grey_3
+  font-family: $stack_display
+  color: $blue_deep
+  font-weight: normal
 
