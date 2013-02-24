@@ -2,3 +2,9 @@
 %script{ src: 'https://maps.googleapis.com/maps/api/js?v=3.11&sensor=false' }
 
 = javascript_include_tag :application
+
+-# Bootstrap locations collection
+%script
+  PlaceIt.locations = new PlaceIt.Locations();
+  != "var locations = #{@locations.to_json};"
+  PlaceIt.locations.reset( locations );

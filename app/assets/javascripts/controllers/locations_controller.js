@@ -1,71 +1,54 @@
-PlaceIt.LocationsController = function() {
+PlaceIt.LocationsController = Backbone.View.extend({
 
-  this.locations = [];
-
-  this.initialize = function() {
-    _.extend(this, Backbone.Events);
-    _.bindAll(this, 'populateViews', 'addLocationViews', 'geocodeLocation');
-
-    this.geocoder = new google.maps.Geocoder();
-    this.initViews();
-    this.initForm();
-    this.initLocations();
-  };
-
-  this.initViews = function() {
-    this.views = {};
-    this.views.list = new PlaceIt.Views.LocationsList({el: $('ul.locations')});
-    this.views.map = new PlaceIt.Views.GoogleMap( {el: $('#map')} );
-  };
-
-  this.initForm = function() {
-    this.form = new PlaceIt.Views.NewLocationForm( {el: $('form')} );
-    this.listenTo(this.form, 'location:add', this.geocodeLocation );
+  events: {
+    'click .submit': 'geocodeLocation'
   },
 
-  /* Set collection, listen for changes, & retrieve initial locations from server */
-  this.initLocations = function() {
-    this.locations = new PlaceIt.Locations();
-    this.listenTo(this.locations, 'add', this.addLocationViews);
+  initialize: function() {
+    _.bindAll(this, 'geocodeLocation', 'addLocation');
 
-    this.locations.fetch({success: this.populateViews});
-  };
+    this.geocoder = new google.maps.Geocoder();
+    this.populateViews();
+  },
 
-  /* Create list and marker views */
-  this.populateViews = function(locations, response, opts) {
-    locations.models.forEach( function(loc, response, opts) {
-      this.addLocationViews(loc);
-    }, this);
-  };
+  populateViews: function() {
+    this.map = new PlaceIt.Views.GoogleMap( {el: $('#map'), collection: this.collection} );
+    this.list = new PlaceIt.Views.LocationsList( {el: $('ul.locations'), collection: this.collection} );
+  },
 
-  /* Makes Google Maps api call to geocode by address and passes result to initNewLocation if valid */
-  this.geocodeLocation = function(locationData) {
-    this.geocoder.geocode( _.pick(locationData, 'address'), _.bind(function(geoResult, status) {
-      var gloc, latlng;
+  /* Makes Google Maps api call to geocode by address and passes result to addLocation */
+  geocodeLocation: function(evt) {
+    var locationData = this.gatherLocationData();
 
-      if (status !== 'OK') {
-        this.geocodingError(locationData);
-      }
-      else {
-        gloc = geoResult[0].geometry.location;
-        latlng = {latitude: gloc.lat(), longitude: gloc.lng()};
+    evt.preventDefault();
+    this.geocoder.geocode( _.pick(locationData, 'address'), this.addLocation );
+  },
 
-        this.locations.create(_.extend(locationData, latlng), {wait: true});
-      }
-    }, this));
-  };
+  addLocation: function(geoResult, status) {
+    var locationData = this.gatherLocationData();
+
+    if (status !== 'OK') {
+      this.geocodingError(LocationData);
+    }
+    else {
+      /* Map geocode data to our location model */
+      var gloc = geoResult[0].geometry.location;
+      var latlng = {latitude: gloc.lat(), longitude: gloc.lng()};
+      this.collection.create(_.extend(locationData, latlng), {wait: true});
+    }
+  },
 
   /* TODO */
-  this.geocodingError = jQuery.noop;
+  geocodingError: jQuery.noop,
 
-  this.addLocationViews = function(model) {
-    this.views.list.addItem(model);
-    this.views.map.addMarker(model);
-  };
+  gatherLocationData: function() {
+    return {
+      name: this.$el.find('[name="location[name]"]').val(),
+      address: this.$el.find('[name="location[address]"]').val()
+    };
+  }
 
-  /* Kickoff */
-  this.initialize();
-}
+});
 
 
 /* Instantiate controller */
@@ -74,5 +57,5 @@ $(document).ready(function() {
     return;
   }
 
-  PlaceIt.ctrl = new PlaceIt.LocationsController();
+  PlaceIt.ctrl = new PlaceIt.LocationsController( {el: $('form'), collection: PlaceIt.locations} );
 });
