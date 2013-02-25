@@ -104,7 +104,7 @@ PlaceIt.Views.GoogleMap = Backbone.View.extend({
     this.markers = _.reject(this.markers, function(m) { return m.id == location.id; });
 
     location.set( PlaceIt.geocoder.resultToLatLng(geoResult) );
-    location.save();
+    location.save({wait: true});
     this.addMarker(location);
   },
 

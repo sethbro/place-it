@@ -14,7 +14,7 @@ PlaceIt.Views.LocationMarker = Backbone.View.extend({
     };
 
     this.listenTo(this.model, 'destroy', this.removeMarker);
-    this.listenTo(this.model, 'sync', this.updateMarker);
+    this.listenTo(this.model, 'change:latitude', this.updateMarker);
     this.render();
   },
 
