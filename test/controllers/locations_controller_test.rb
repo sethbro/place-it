@@ -41,6 +41,16 @@ describe LocationsController do
     Location.count.must_equal( count - 1)
   end
 
+  it "must update location" do
+    loc = FactoryGirl.create :location
+    new_address = 'statue of liberty'
+
+    put :update, { id: loc.id, location: {address: new_address}, format: :json}
+
+    updated_location = location.merge({address: new_address})
+    Location.find(loc.id).address.must_equal new_address
+    @response.body.must_equal( updated_location.to_json )
+  end
 
   # it "must get new" do
   #   get :new
